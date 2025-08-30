@@ -1,0 +1,32 @@
+//
+//
+//
+//
+//
+public class Test {
+    // This is a single line comment
+    
+    int x = 5;
+    /* This is a block comment */
+    int y = 10;
+    /* Multi-line
+    sad
+    asd
+    asdasd
+    asdasdasd
+    andas
+    asdass
+       block comment */
+    int z = 15;/* Multi-line
+    
+       block comment */
+    
+    // Another comment
+} /* Multi-line
+    sad
+    asd
+    asdasd
+    asdasdasd
+    andas
+    asdass
+       block comment */
