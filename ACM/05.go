@@ -43,7 +43,7 @@ func main() {
 		}
 
 		// 找到最长的等价子序列
-		result := findLongestEquivalentSubsequence(inputStrings)
+		result := myFindSubseq(inputStrings)
 		fmt.Println(result)
 	}
 }
@@ -106,6 +106,42 @@ func getCharCount(s string) []int {
 	return count
 }
 
-func myFindSubseq() string {
-	//TODO
+func myFindSubseq(inputStrings []string) string {
+
+	if len(inputStrings) == 0 {
+		return "-1"
+	}
+
+	// a-z min 找到所有字符串中该字符的最小数量
+	// 这表示我们最多可以在结果字符串t中使用该字符多少次
+	minCount := make([]int, 26)
+
+	firstCount := getCharCount(inputStrings[0])
+	// copy(dst, src []Type) copies elements from a source slice into a destination slice
+	copy(minCount, firstCount)
+
+	for i := 0; i < len(inputStrings); i++ {
+		s := inputStrings[i]
+		count := getCharCount(s)
+		for j := 0; j < 26; j++ {
+			if count[j] < minCount[j] {
+				minCount[j] = count[j]
+			}
+		}
+
+	}
+
+	var result strings.Builder
+	for i := 0; i < 26; i++ {
+		c := byte(i + 'a')
+		for j := 0; j < minCount[i]; j++ {
+			result.WriteByte(c)
+		}
+	}
+
+	resultStr := result.String()
+	if resultStr == "" {
+		return "-1"
+	}
+	return resultStr
 }
