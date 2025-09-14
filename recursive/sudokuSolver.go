@@ -1,4 +1,4 @@
-package hashMap
+package recursive
 
 /*
 Write a program to solve a Sudoku puzzle by filling the empty cells.
@@ -30,3 +30,11 @@ The given board size is always 9x9.
 */
 
 // TODO: 完成
+func solveSudoku(board [][]byte) {
+
+	// judge can put row
+
+	// judge can put column
+
+	// judge can put subbox
+}

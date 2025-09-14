@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-// TODO: Finish movingLongestPath
+// Finish movingLongestPath
 // Question : 寻找任意节点k到t的最长路径
 // stdin and stdout
 // eg input
@@ -55,6 +55,18 @@ func movingLongestPath(n, m int, values []int, graph [][]int) int {
 
 	return maxPath
 }
+func movingLongestPathII(n, m int, value []int, graph [][]int) int {
+	maxPath := 0
+
+	// each node as start
+	for start := 1; start <= n; start++ {
+		// DFS all possible paths
+		visited := make([]bool, n+1)
+		dfsAllPathII(start, -1, 0, m, graph, value, visited, &maxPath)
+	}
+
+	return maxPath
+}
 
 // dfsAllPaths 深度优先搜索所有可能的路径
 func dfsAllPaths(current, parent, currentLength, remainingOnes int, values []int, graph [][]int, visited []bool, maxPath *int) {
@@ -82,4 +94,34 @@ func dfsAllPaths(current, parent, currentLength, remainingOnes int, values []int
 	}
 
 	visited[current] = false // 回溯
+}
+
+// dfsAllPathII 修正版本：正确处理路径长度和回溯
+func dfsAllPathII(current, parent, currentLength, m int, graph [][]int, values []int, visited []bool, maxPath *int) {
+	// 检查当前节点是否可访问
+	currentOnes := m
+	if values[current] == 1 {
+		if currentOnes <= 0 {
+			return // 不能访问这个节点
+		}
+		currentOnes--
+	}
+
+	// 标记为已访问
+	visited[current] = true
+
+	// 更新最大路径长度
+	if currentLength > *maxPath {
+		*maxPath = currentLength
+	}
+
+	// 继续探索邻居节点
+	for _, nextNode := range graph[current] {
+		if !visited[nextNode] && nextNode != parent {
+			dfsAllPathII(nextNode, current, currentLength+1, currentOnes, graph, values, visited, maxPath)
+		}
+	}
+
+	// 回溯：取消访问标记
+	visited[current] = false
 }
